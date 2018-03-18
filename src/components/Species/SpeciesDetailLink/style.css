@@ -1,0 +1,12 @@
+.SpeciesDetailLink {
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    background-color: #cf5154;
+    color: #f7c3ad;
+    transition: background-color 0.25s;
+}
+
+.SpeciesDetailLink:hover {
+    background-color: #cf0104;
+}
