@@ -9,11 +9,11 @@ export interface SpeciesDetailLinkProp {
 export default class SpeciesDetailLink extends React.Component<SpeciesDetailLinkProp> {
     render() {
         return (
-            <a id={this.linkId()} className="SpeciesDetailLink" href="#">{this.props.specie.getName()}</a>
+            <a id={this.linkId()} className="SpeciesDetailLink" href="#">{this.props.specie.name}</a>
         );
     }
 
     linkId(): string {
-        return 'SpeciesDetailLink-link-' + this.props.specie.getId();
+        return 'SpeciesDetailLink-link-' + this.props.specie.id;
     }
 }

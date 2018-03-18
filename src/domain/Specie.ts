@@ -1,13 +1,5 @@
 class Specie {
-    public constructor(private id: number, private name: string) { }
-
-    getName(): string {
-        return this.name;
-    }
-
-    getId(): number {
-        return this.id;
-    }
+    public constructor(readonly id: number, readonly name: string) { }
 }
 
 export default Specie;

@@ -15,7 +15,7 @@ describe('<SpeciesDetailLink>', () => {
            const givenSpecie: Specie = new Specie(1, 'Pikachu');
            const wrapper = shallow(<SpecieDetail specie={givenSpecie} />);
            const linkText = wrapper.find('#SpeciesDetailLink-link-1').text();
-           expect(linkText).toEqual(givenSpecie.getName());
+           expect(linkText).toEqual(givenSpecie.name);
        });
    });
 });
