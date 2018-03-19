@@ -1,9 +1,9 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import Specie from '../../../domain/Specie';
-import { SpeciesListEmptyStageView, SpeciesListLoadingView, SpeciesListView } from './view';
-import { SpeciesListController, SpeciesListControllerStateOptions } from './controller';
 import * as sinon from 'sinon';
+import Specie from '../../../domain/Specie';
+import { SpeciesListController, SpeciesListControllerStateOptions } from './controller';
+import { SpeciesListEmptyStageView, SpeciesListFetchErrorView, SpeciesListLoadingView, SpeciesListView } from './view';
 import EmptyFunction = jest.EmptyFunction;
 
 describe('<SpeciesListController>', () => {
@@ -98,18 +98,31 @@ describe('<SpeciesListController>', () => {
     });
 
     describe('Show list', () => {
-       it('renders the list when it is given', () => {
-           const givenSpecies = [
-               new Specie(1, 'Bubasauro')
-           ];
+        it('renders the list when it is given', () => {
+            const givenSpecies = [
+                new Specie(1, 'Bubasauro')
+            ];
 
-           const wrapper = shallow(
-               <SpeciesListController
-                   state={SpeciesListControllerStateOptions.Fetched}
-                   fetchService={emptyFetchService}
-                   list={givenSpecies}
-               />);
-           expect(wrapper.find(SpeciesListView).prop('list')).toEqual(givenSpecies);
-       });
+            const wrapper = shallow(
+                <SpeciesListController
+                    state={SpeciesListControllerStateOptions.Fetched}
+                    fetchService={emptyFetchService}
+                    list={givenSpecies}
+                />);
+            expect(wrapper.find(SpeciesListView).prop('list')).toEqual(givenSpecies);
+        });
+    });
+
+    describe('Show fetch error', () => {
+        it('shows the fetch error when the fetch error state is given', () => {
+            const wrapper = shallow(
+                <SpeciesListController
+                    state={SpeciesListControllerStateOptions.FetchError}
+                    fetchService={emptyFetchService}
+                    list={[]}
+                />);
+            expect(wrapper.find(SpeciesListFetchErrorView).exists()).toBeTruthy();
+            expect(wrapper.find(SpeciesListFetchErrorView).prop('fetchService')).toBe(emptyFetchService);
+        });
     });
 });

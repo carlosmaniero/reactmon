@@ -15,7 +15,7 @@ export class SpeciesServiceException extends Error {
     }
 }
 
-function extractUrlId (url: string): number {
+function extractUrlId(url: string): number {
     const regexp = new RegExp('pokemon-species\\/(\\d+)');
     const regexGroups = regexp.exec(url);
 
@@ -26,15 +26,16 @@ function extractUrlId (url: string): number {
     return parseInt(regexGroups[1], 10);
 }
 
-function resultToSpecie (result: SpecieResult): Specie {
+function resultToSpecie(result: SpecieResult): Specie {
     return new Specie(extractUrlId(result.url), result.name);
 }
 
 export default {
-
     async getSpecies(): Promise<Specie[]> {
         try {
-            const result = await axios.get(baseUrl + 'pokemon-species/?limit=20');
+            const result = await axios.get(
+                baseUrl + 'pokemon-species/?limit=20',
+            );
             return result.data.results.map((specieResult) => {
                 return resultToSpecie(specieResult);
             });

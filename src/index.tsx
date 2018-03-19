@@ -19,7 +19,8 @@ let store = createStore<MainState>(
     combineMainReducers([
         partialReducer(routerReducer),
         SpeciesListReducer.loadingReducer,
-        SpeciesListReducer.fetchedReducer
+        SpeciesListReducer.fetchedReducer,
+        SpeciesListReducer.fetchErrorReducer
     ]),
     initialMainState,
     applyMiddleware(middleware)

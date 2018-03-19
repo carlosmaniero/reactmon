@@ -1,7 +1,10 @@
 import Specie from '../domain/Specie';
 import SpeciesService from '../services/SpeciesService';
-import { onFetchedSpeciesList, SPECIES_LIST_FETCHED_ACTION } from './SpeciesList';
-import { fetchServiceAction, loadingSpeciesList } from './SpeciesList';
+import {
+    onFetchedSpeciesList, onFetchErrorSpeciesList, SPECIES_LIST_FETCH_ERROR_ACTION,
+    SPECIES_LIST_FETCHED_ACTION
+} from './SpeciesList';
+import { fetchServiceAction, onLoadingSpeciesList } from './SpeciesList';
 import * as sinon from 'sinon';
 
 describe('SpeciesListActions', () => {
@@ -10,7 +13,7 @@ describe('SpeciesListActions', () => {
             const dispatcher = sinon.stub();
             fetchServiceAction(dispatcher);
 
-            expect(dispatcher.firstCall.args[0]).toEqual(loadingSpeciesList());
+            expect(dispatcher.firstCall.args[0]).toEqual(onLoadingSpeciesList());
         });
 
         it('calls the dispatcher with the given species list when performed', async () => {
@@ -27,6 +30,20 @@ describe('SpeciesListActions', () => {
 
             await givenPromise;
             expect(dispatcher.secondCall.args[0]).toEqual(onFetchedSpeciesList(givenList));
+        });
+
+        it('calls the dispatcher with fetch error action on promise rejection', async () => {
+            const dispatcher = sinon.stub();
+            const givenList = [
+                new Specie(1, 'Bubasauro')
+            ];
+            const givenPromise = Promise.reject(givenList);
+            spyOn(SpeciesService, 'getSpecies').and.returnValues(givenPromise);
+
+            fetchServiceAction(dispatcher);
+
+            await givenPromise.catch(() => true);
+            expect(dispatcher.secondCall.args[0]).toEqual(onFetchErrorSpeciesList());
         });
     });
 
@@ -45,6 +62,14 @@ describe('SpeciesListActions', () => {
             expect(onFetchedSpeciesList(givenList)).toEqual({
                 type: SPECIES_LIST_FETCHED_ACTION,
                 data: givenList
+            });
+        });
+    });
+
+    describe('onFetchErrorSpeciesList', () => {
+        it('returns the write action', () => {
+            expect(onFetchErrorSpeciesList()).toEqual({
+                type: SPECIES_LIST_FETCH_ERROR_ACTION,
             });
         });
     });

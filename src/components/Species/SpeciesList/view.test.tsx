@@ -1,7 +1,8 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import Specie from '../../../domain/Specie';
-import { SpeciesListView } from './view';
+import { SpeciesListFetchErrorView, SpeciesListView } from './view';
+import * as sinon from 'sinon';
 
 describe('<SpeciesListView>', () => {
     describe('listing species', () => {
@@ -12,6 +13,18 @@ describe('<SpeciesListView>', () => {
                 .children().map(specieLink => specieLink.prop('specie'));
 
             expect(renderedList).toEqual(givenList);
+        });
+    });
+});
+
+describe('<SpeciesListFetchErrorView>', () => {
+    describe('clicking in try again button', () => {
+        it('calls the given reload action', () => {
+            const givenAction = sinon.stub();
+            const wrapper = shallow(<SpeciesListFetchErrorView fetchService={givenAction} />);
+            wrapper.find('a').simulate('click');
+
+            expect(givenAction.called).toBeTruthy();
         });
     });
 });

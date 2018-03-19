@@ -3,14 +3,28 @@ import './style.css';
 import Specie from '../../../domain/Specie';
 import SpeciesDetail from '../SpeciesDetailLink/view';
 
-export interface SpeciesListProps {
-    list: Specie[];
-}
-
 export class SpeciesListEmptyStageView extends React.Component {
     render() {
-        return <div className="SpeciesListView-empty-stage">There is no specie to show!</div>;
+        return <div className="SpeciesListEmptyStageView">There is no specie to show!</div>;
     }
+}
+
+export interface SpeciesListFetchErrorProps {
+    fetchService(): void;
+}
+
+export class SpeciesListFetchErrorView extends React.Component<SpeciesListFetchErrorProps> {
+    render() {
+        return (
+            <div className="SpeciesListFetchError">
+                Something is wrong <a onClick={this.props.fetchService}>Try again</a>
+            </div>
+        );
+    }
+}
+
+export interface SpeciesListProps {
+    list: Specie[];
 }
 
 export class SpeciesListLoadingView extends React.Component {

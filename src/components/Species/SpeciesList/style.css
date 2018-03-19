@@ -1,3 +1,9 @@
 .SpeciesList .SpeciesDetailLink {
     margin: 0.25rem 0.5rem;
 }
+
+.SpeciesListFetchError a {
+    cursor: pointer;
+    display: inline-block;
+    color: #cf0104;
+}
