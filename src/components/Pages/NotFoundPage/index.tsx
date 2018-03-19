@@ -4,7 +4,7 @@ import './NotFoundPage.css';
 const sadPikachu = require('./sad-pikachu.gif');
 
 export default class NotFoundPage extends React.Component {
-    render () {
+    render() {
         return (
             <div id="NotFoundPage">
                 <h1>Page Not Found!</h1>

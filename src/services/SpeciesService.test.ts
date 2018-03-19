@@ -50,7 +50,7 @@ describe('SpeciesService', () => {
 
     describe('Raising exception', () => {
         it('should raises an exception given a server error', async () => {
-            moxios.stubRequest(givenURL, { status: 500 });
+            moxios.stubRequest(givenURL, {status: 500});
 
             try {
                 await SpeciesServices.getSpecies().catch();

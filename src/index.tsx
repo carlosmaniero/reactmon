@@ -1,16 +1,16 @@
+import { History } from 'history';
+import createHistory from 'history/createBrowserHistory';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
+import { applyMiddleware, createStore } from 'redux';
+import App from './App';
+import './index.css';
 import { combineMainReducers, partialReducer } from './reducers/configure';
 import * as SpeciesListReducer from './reducers/SpeciesListReducer';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
-import { MainState, initialMainState } from './state/MainState';
-import { History } from 'history';
-import App from './App';
+import { initialMainState, MainState } from './state/MainState';
 
 const history: History = createHistory();
 const middleware = routerMiddleware(history);
@@ -29,7 +29,7 @@ let store = createStore<MainState>(
 ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            <App />
+            <App/>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root') as HTMLElement

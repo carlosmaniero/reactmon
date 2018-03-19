@@ -1,11 +1,14 @@
+import * as sinon from 'sinon';
 import Specie from '../domain/Specie';
 import SpeciesService from '../services/SpeciesService';
 import {
-    onFetchedSpeciesList, onFetchErrorSpeciesList, SPECIES_LIST_FETCH_ERROR_ACTION,
+    fetchServiceAction,
+    onFetchedSpeciesList,
+    onFetchErrorSpeciesList,
+    onLoadingSpeciesList,
+    SPECIES_LIST_FETCH_ERROR_ACTION,
     SPECIES_LIST_FETCHED_ACTION
 } from './SpeciesList';
-import { fetchServiceAction, onLoadingSpeciesList } from './SpeciesList';
-import * as sinon from 'sinon';
 
 describe('SpeciesListActions', () => {
     describe('fetchServiceAction', () => {
@@ -19,7 +22,7 @@ describe('SpeciesListActions', () => {
         it('calls the dispatcher with the given species list when performed', async () => {
             const dispatcher = sinon.stub();
             const givenList = [
-               new Specie(1, 'Bubasauro')
+                new Specie(1, 'Bubasauro')
             ];
             const givenPromise = Promise.resolve(givenList);
             const spyFetch = spyOn(SpeciesService, 'getSpecies').and.returnValues(givenPromise);

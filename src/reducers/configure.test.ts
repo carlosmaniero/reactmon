@@ -1,10 +1,10 @@
 import { Reducer } from 'redux';
+import * as sinon from 'sinon';
 import { Actions } from '../actions';
 import { SPECIES_LIST_LOADING_ACTION } from '../actions/SpeciesList';
 import { SpeciesListControllerStateOptions } from '../components/Species/SpeciesList/controller';
 import Specie from '../domain/Specie';
 import { AppState, initialMainState, MainState } from '../state/MainState';
-import * as sinon from 'sinon';
 import { combineMainReducers, partialReducer } from './configure';
 import { createMainStateReducersFixtures } from './configure.testFixtures';
 
@@ -53,18 +53,18 @@ describe('Configuring the reducers', () => {
 
     describe('partialReducer', () => {
         const givenSpeciesListState = {
-           state: SpeciesListControllerStateOptions.Fetched,
-           list: [new Specie(1, 'Bubasauro')]
+            state: SpeciesListControllerStateOptions.Fetched,
+            list: [new Specie(1, 'Bubasauro')]
         };
 
         it('apply the given partial state in tha main state', () => {
-           const appReducer: Reducer<AppState> = sinon.stub().returns({
-               speciesListState: givenSpeciesListState
-           });
+            const appReducer: Reducer<AppState> = sinon.stub().returns({
+                speciesListState: givenSpeciesListState
+            });
 
-           const reducer: Reducer<MainState> = partialReducer(appReducer);
-           const expectedState: MainState = {...initialMainState, speciesListState: givenSpeciesListState};
-           expect(reducer(initialMainState, givenAction)).toEqual(expectedState);
+            const reducer: Reducer<MainState> = partialReducer(appReducer);
+            const expectedState: MainState = {...initialMainState, speciesListState: givenSpeciesListState};
+            expect(reducer(initialMainState, givenAction)).toEqual(expectedState);
         });
 
         describe('Delegating call', () => {

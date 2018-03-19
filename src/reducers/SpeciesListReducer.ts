@@ -1,6 +1,7 @@
 import { Actions } from '../actions';
 import {
-    FetchedSpeciesListAction, SPECIES_LIST_FETCH_ERROR_ACTION,
+    FetchedSpeciesListAction,
+    SPECIES_LIST_FETCH_ERROR_ACTION,
     SPECIES_LIST_FETCHED_ACTION,
     SPECIES_LIST_LOADING_ACTION
 } from '../actions/SpeciesList';

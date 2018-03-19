@@ -1,7 +1,7 @@
 import * as React from 'react';
-import './style.css';
 import Specie from '../../../domain/Specie';
 import SpeciesDetail from '../SpeciesDetailLink/view';
+import './style.css';
 
 export class SpeciesListEmptyStageView extends React.Component {
     render() {
@@ -38,7 +38,7 @@ export class SpeciesListLoadingView extends React.Component {
 }
 
 export class SpeciesListView extends React.Component<SpeciesListProps> {
-    render () {
+    render() {
         return (
             <div className="SpeciesList">
                 {this.content()}

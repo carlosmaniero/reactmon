@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
-import { SinonStub } from 'sinon';
 import * as sinon from 'sinon';
+import { SinonStub } from 'sinon';
 import { SpeciesListControllerStateOptions } from '../components/Species/SpeciesList/controller';
 import Specie from '../domain/Specie';
 import { MainState } from '../state/MainState';

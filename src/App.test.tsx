@@ -1,12 +1,12 @@
 import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
-import App from './App';
 import * as React from 'react';
-import HomePage from './components/Pages/HomePage';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
+import createMockStore from 'redux-mock-store';
+import App from './App';
+import HomePage from './components/Pages/HomePage';
 import NotFoundPage from './components/Pages/NotFoundPage';
 import { initialMainState } from './state/MainState';
-import createMockStore from 'redux-mock-store';
 
 describe('routes', () => {
     let wrapper;
@@ -15,7 +15,7 @@ describe('routes', () => {
     it('is in the home page when the route is "/', () => {
         wrapper = mount(
             <Provider store={store}>
-                <MemoryRouter initialEntries={[ '/' ]}>
+                <MemoryRouter initialEntries={['/']}>
                     <App/>
                 </MemoryRouter>
             </Provider>
@@ -28,7 +28,7 @@ describe('routes', () => {
     it('is in the not found page given any other page', () => {
         wrapper = mount(
             <Provider store={store}>
-                <MemoryRouter initialEntries={[ '/digimon' ]}>
+                <MemoryRouter initialEntries={['/digimon']}>
                     <App/>
                 </MemoryRouter>
             </Provider>

@@ -2,11 +2,13 @@ import { connect, Dispatch } from 'react-redux';
 import { fetchServiceAction, SpeciesListActions } from '../../../actions/SpeciesList';
 import { MainState } from '../../../state/MainState';
 import {
-    SpeciesListController, SpeciesListControllerActions, SpeciesListControllerProps,
+    SpeciesListController,
+    SpeciesListControllerActions,
+    SpeciesListControllerProps,
     SpeciesListControllerState
 } from './controller';
 
-function mapStateToProps({ speciesListState }: MainState): SpeciesListControllerState {
+function mapStateToProps({speciesListState}: MainState): SpeciesListControllerState {
     return speciesListState;
 }
 

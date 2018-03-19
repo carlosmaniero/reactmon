@@ -43,20 +43,20 @@ export class SpeciesListController extends React.Component<SpeciesListController
         }
 
         if (this.props.state === SpeciesListControllerStateOptions.FetchError) {
-            return <SpeciesListFetchErrorView fetchService={this.props.fetchService} />;
+            return <SpeciesListFetchErrorView fetchService={this.props.fetchService}/>;
         }
 
-        return <SpeciesListLoadingView />;
+        return <SpeciesListLoadingView/>;
     }
 
     private renderList() {
         if (this.props.list.length === 0) {
             if (this.props.list.length === 0) {
-                return <SpeciesListEmptyStageView />;
+                return <SpeciesListEmptyStageView/>;
             }
         }
         return (
-            <SpeciesListView list={this.props.list} />
+            <SpeciesListView list={this.props.list}/>
         );
     }
 }

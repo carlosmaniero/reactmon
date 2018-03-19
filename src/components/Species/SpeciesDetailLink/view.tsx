@@ -1,6 +1,6 @@
 import * as React from 'react';
-import './style.css';
 import Specie from '../../../domain/Specie';
+import './style.css';
 
 export interface SpeciesDetailLinkProp {
     specie: Specie;
