@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Specie from '../../../domain/Specie';
-import SpeciesList from './view';
+import { SpeciesListEmptyStageView, SpeciesListLoadingView, SpeciesListView } from './view';
 
 export const SpeciesListLoading = 'SpeciesListLoading';
 export type SpeciesListLoading = typeof SpeciesListLoading;
@@ -38,19 +38,20 @@ export class SpeciesListController extends React.Component<SpeciesListController
 
     render() {
         if (this.props.state === SpeciesListControllerStateOptions.Fetched) {
-            return (
-                <SpeciesList list={this.props.list} />
-            );
+            return this.renderList();
         }
 
-        return this.renderLoading();
+        return <SpeciesListLoadingView />;
     }
 
-    private renderLoading() {
+    private renderList() {
+        if (this.props.list.length === 0) {
+            if (this.props.list.length === 0) {
+                return <SpeciesListEmptyStageView />;
+            }
+        }
         return (
-            <div id="SpeciesListController-loading">
-                Loading... Please, wait!
-            </div>
+            <SpeciesListView list={this.props.list} />
         );
     }
 }

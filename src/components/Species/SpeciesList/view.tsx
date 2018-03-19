@@ -7,7 +7,23 @@ export interface SpeciesListProps {
     list: Specie[];
 }
 
-export default class SpeciesListView extends React.Component<SpeciesListProps> {
+export class SpeciesListEmptyStageView extends React.Component {
+    render() {
+        return <div className="SpeciesListView-empty-stage">There is no specie to show!</div>;
+    }
+}
+
+export class SpeciesListLoadingView extends React.Component {
+    render() {
+        return (
+            <div id="SpeciesListController-loading">
+                Loading... Please, wait!
+            </div>
+        );
+    }
+}
+
+export class SpeciesListView extends React.Component<SpeciesListProps> {
     render () {
         return (
             <div className="SpeciesList">
@@ -17,15 +33,7 @@ export default class SpeciesListView extends React.Component<SpeciesListProps> {
     }
 
     private content() {
-        if (this.props.list.length === 0) {
-            return this.emptyStage();
-        }
-
         return this.list();
-    }
-
-    private emptyStage() {
-        return <div className="SpeciesListView-empty-stage">There is no specie to show!</div>;
     }
 
     private list() {

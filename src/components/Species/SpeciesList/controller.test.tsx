@@ -1,13 +1,37 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import Specie from '../../../domain/Specie';
-import SpeciesList from './view';
+import { SpeciesListEmptyStageView, SpeciesListLoadingView, SpeciesListView } from './view';
 import { SpeciesListController, SpeciesListControllerStateOptions } from './controller';
 import * as sinon from 'sinon';
 import EmptyFunction = jest.EmptyFunction;
 
 describe('<SpeciesListController>', () => {
-    const emptyFastService: EmptyFunction = () => null;
+    const emptyFetchService: EmptyFunction = () => null;
+
+    describe('empty stage', () => {
+        it('renders an empty stage given no data', () => {
+            const wrapper = mount(
+                <SpeciesListController
+                    state={SpeciesListControllerStateOptions.Fetched}
+                    fetchService={emptyFetchService}
+                    list={[]}
+                />
+            );
+            expect(wrapper.find(SpeciesListEmptyStageView).exists()).toBeTruthy();
+        });
+
+        it('hides the empty stage given an non empty species list', () => {
+            const wrapper = mount(
+                <SpeciesListController
+                    state={SpeciesListControllerStateOptions.Fetched}
+                    fetchService={emptyFetchService}
+                    list={[new Specie(1, 'Bulbasaur')]}
+                />
+            );
+            expect(wrapper.find(SpeciesListEmptyStageView).exists()).toBeFalsy();
+        });
+    });
 
     describe('Fetching data', () => {
         it('calls the fetchData method given the no fetch state', () => {
@@ -54,22 +78,22 @@ describe('<SpeciesListController>', () => {
             const wrapper = shallow(
                 <SpeciesListController
                     state={SpeciesListControllerStateOptions.Loading}
-                    fetchService={emptyFastService}
+                    fetchService={emptyFetchService}
                     list={[]}
                 />
             );
-            expect(wrapper.find('#SpeciesListController-loading').length).toEqual(1);
+            expect(wrapper.find(SpeciesListLoadingView).exists()).toBeTruthy();
         });
 
         it('hide the loading message given a species list', () => {
             const wrapper = shallow(
                 <SpeciesListController
                     state={SpeciesListControllerStateOptions.Fetched}
-                    fetchService={emptyFastService}
+                    fetchService={emptyFetchService}
                     list={[]}
                 />
             );
-            expect(wrapper.find('#SpeciesListController-loading').length).toEqual(0);
+            expect(wrapper.find(SpeciesListLoadingView).exists()).toBeFalsy();
         });
     });
 
@@ -82,10 +106,10 @@ describe('<SpeciesListController>', () => {
            const wrapper = shallow(
                <SpeciesListController
                    state={SpeciesListControllerStateOptions.Fetched}
-                   fetchService={emptyFastService}
+                   fetchService={emptyFetchService}
                    list={givenSpecies}
                />);
-           expect(wrapper.find(SpeciesList).prop('list')).toEqual(givenSpecies);
+           expect(wrapper.find(SpeciesListView).prop('list')).toEqual(givenSpecies);
        });
     });
 });
